@@ -154,5 +154,12 @@ public class SeleniumTestScript {
 		
 		System.out.println("-------------------\nPassed --> Test suite 3\n-------------------");
 	}
+	
+	
+	@Test
+	public void testMethod() {
+		
+		System.out.println("This is a Test Method");
+	}
 
 }
