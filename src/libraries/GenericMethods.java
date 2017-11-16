@@ -20,7 +20,6 @@ public class GenericMethods {
 	WebDriverWait wait;
 	
 	public GenericMethods(WebDriver driver, WebDriverWait wait) {
-		super();
 		this.driver = driver;
 		this.wait = wait;
 	}
@@ -34,9 +33,25 @@ public class GenericMethods {
 	 */
 	public void clickByXpath(String xpath, String message) throws Exception{
 		try {
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
-			driver.findElement(By.xpath(xpath)).click();
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+			this.driver.findElement(By.xpath(xpath)).click();
 		} catch (Exception e) {
+			throw new Exception(message);
+		}
+	}
+	
+	/**
+	 * This method clicks on the id that is provided and throws the message as exception
+	 * if the element is not found/clickable
+	 * @param id
+	 * @param message
+	 * @throws Exception
+	 */
+	public void clickById(String id, String message) throws Exception{
+		try{
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+			this.driver.findElement(By.id(id)).click();
+		}catch(Exception e){
 			throw new Exception(message);
 		}
 	}
@@ -51,8 +66,8 @@ public class GenericMethods {
 	 */
 	public void enterByXpath(String xpath, String value, String message) throws Exception{
 		try {
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
-			driver.findElement(By.xpath(xpath)).sendKeys(value);
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+			this.driver.findElement(By.xpath(xpath)).sendKeys(value);
 		} catch (Exception e) {
 			throw new Exception(message);
 		}
@@ -68,8 +83,8 @@ public class GenericMethods {
 	 */
 	public void enterById(String id, String value, String message) throws Exception{
 		try {
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(id)));
-			driver.findElement(By.id(id)).sendKeys(value);
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+			this.driver.findElement(By.id(id)).sendKeys(value);
 		} catch (Exception e) {
 			throw new Exception(message);
 		}
@@ -83,9 +98,9 @@ public class GenericMethods {
 	 * @return
 	 * @throws Exception
 	 */
-	public String getTestByXpath(String xpath, String message) throws Exception{
+	public String getTextByXpath(String xpath, String message) throws Exception{
 		try {
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
+			this.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 			return driver.findElement(By.xpath(xpath)).getText();
 		} catch (Exception e) {
 			throw new Exception(message);
